@@ -1,0 +1,28 @@
+/* tricky_mouse_hack/static/src/css/hack_mouse.css */
+.hack-popover {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8);
+    color: #0f0;
+    padding: 10px;
+    border: 2px solid #0f0;
+    font-family: monospace;
+    font-size: 16px;
+    opacity: 0;
+    z-index: 10000;
+    width: 150px;
+    text-align: center;
+    box-shadow: 0 0 10px #0f0;
+    animation: pulse 1s infinite alternate;
+}
+.hack-text {
+    display: inline-block;
+}
+@keyframes pulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+}
+
+
+.o_web_client {
+    background: #FFF
+}

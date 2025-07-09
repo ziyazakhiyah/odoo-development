@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="lab_welcome" model="ir.actions.client">
+        <field name="name">Welcome</field>
+        <field name="tag">lab_dashboard</field>
+    </record>
+    <menuitem id="welcome_dash_menu"
+        name="Welcome"
+        parent="lab_patient_menu_root"
+        sequence="-1" action="lab_welcome"/>
+</odoo>

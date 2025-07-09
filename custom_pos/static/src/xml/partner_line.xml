@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+    <t t-name="custom_pos.PartnerLine" t-inherit="point_of_sale.PartnerLine" t-inherit-mode="extension">
+        <xpath expr="//tr[contains(@class, 'partner-line')]/td[last()]" position="before">
+            <t t-if="props.partner.pos_orders_amount_due > 0">
+                <td class="py-2">
+                    Total Due: $<t t-esc="props.partner.pos_orders_amount_due || 0.0"/>
+                </td>
+            </t>
+            <t t-else="">
+                <td> </td>
+            </t>
+        </xpath>
+    </t>
+</templates>

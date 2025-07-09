@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="property_management.property_data">
+        <section class="properties_section py-5">
+            <div class="container">
+                <h3 class="section_heading mb-4">Properties</h3>
+                <div id="propertyCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <t t-foreach="property_chunks" t-as="chunk" t-key="chunk_index">
+                            <t t-if="chunk_index == 0">
+                                <div class="carousel-item active">
+                                    <div class="row g-4">
+                                        <t t-foreach="chunk" t-as="property" t-key="property.id">
+                                            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                                <a t-att-href="'/property/' + property.id" class="text-decoration-none text-dark">
+                                                    <div class="card h-100 shadow-lg border-1 position-relative overflow-hidden">
+                                                        <div class="position-relative">
+                                                            <t t-if="property.property_image">
+                                                                <img t-att-src="'data:image/png;base64,' + property.property_image"
+                                                                     class="card-img-top"
+                                                                     t-att-alt="property.name"
+                                                                     loading="lazy"
+                                                                     style="height: 200px; object-fit: cover;"/>
+                                                            </t>
+                                                            <t t-else="">
+                                                                <img src="/property_management/static/src/img/default_image.jpg"
+                                                                     class="card-img-top"
+                                                                     alt="Default Property Image"
+                                                                     loading="lazy"
+                                                                     style="height: 200px; object-fit: cover;"/>
+                                                            </t>
+                                                            <t t-if="property.state == 'Draft'">
+                                                                <span class="position-absolute top-0 end-0 bg-success text-white px-2 py-1 rounded-start"
+                                                                      style="font-size: 0.9rem; z-index: 10;">
+                                                                    Available
+                                                                </span>
+                                                            </t>
+                                                            <t t-else="">
+                                                                <span class="position-absolute top-0 end-0 bg-danger text-white px-2 py-1 rounded-start"
+                                                                      style="font-size: 0.9rem; z-index: 10;">
+                                                                    <t t-esc="property.state"/>
+                                                                </span>
+                                                            </t>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <h5 class="card-title" t-esc="property.name"/>
+                                                            <strong>Rent: </strong>
+                                                            <span>$<t t-esc="property.rent"/></span><br/>
+                                                            <strong>Legal Amount: </strong>
+                                                            <span>$<t t-esc="property.legal_amount"/></span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+                            </t>
+                            <t t-else="">
+                                <div class="carousel-item">
+                                    <div class="row g-4">
+                                        <t t-foreach="chunk" t-as="property" t-key="property.id">
+                                            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                                <a t-att-href="'/property/' + property.id" class="text-decoration-none text-dark">
+                                                    <div class="card h-100 shadow-lg border-1 position-relative overflow-hidden">
+                                                        <div class="position-relative">
+                                                            <t t-if="property.property_image">
+                                                                <img t-att-src="'data:image/png;base64,' + property.property_image"
+                                                                     class="card-img-top"
+                                                                     t-att-alt="property.name"
+                                                                     loading="lazy"
+                                                                     style="height: 200px; object-fit: cover;"/>
+                                                            </t>
+                                                            <t t-else="">
+                                                                <img src="/property_management/static/src/img/default_image.jpg"
+                                                                     class="card-img-top"
+                                                                     alt="Default Property Image"
+                                                                     loading="lazy"
+                                                                     style="height: 200px; object-fit: cover;"/>
+                                                            </t>
+                                                            <t t-if="property.state == 'Draft'">
+                                                                <span class="position-absolute top-0 end-0 bg-success text-white px-2 py-1 rounded-start"
+                                                                      style="font-size: 0.9rem; z-index: 10;">
+                                                                    Available
+                                                                </span>
+                                                            </t>
+                                                            <t t-else="">
+                                                                <span class="position-absolute top-0 end-0 bg-danger text-white px-2 py-1 rounded-start"
+                                                                      style="font-size: 0.9rem; z-index: 10;">
+                                                                    <t t-esc="property.state"/>
+                                                                </span>
+                                                            </t>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <h5 class="card-title" t-esc="property.name"/>
+                                                            <strong>Rent: </strong>
+                                                            <span>$<t t-esc="property.rent"/></span><br/>
+                                                            <strong>Legal Amount: </strong>
+                                                            <span>$<t t-esc="property.legal_amount"/></span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+                            </t>
+                        </t>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#propertyCarousel" data-bs-slide="prev" style="margin-left: -7rem;">
+                        <span class="oi oi-chevron-left me-md-n4 rounded-pill p-3 bg-700"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel" data-bs-slide="next" style="margin-right: -7rem;">
+                        <span class="oi oi-chevron-right me-md-n4 rounded-pill p-3 bg-700"></span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </t>
+</templates>
+

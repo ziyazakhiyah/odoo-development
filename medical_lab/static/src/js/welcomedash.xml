@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="medical_lab.WelcomeDash">
+        <div class="vh-100 d-flex justify-content-center align-items-center">
+            <h1 class="text-white">Welcome</h1>
+        </div>
+    </t>
+</templates>

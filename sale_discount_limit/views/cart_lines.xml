@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="cart_lines_inherit" inherit_id="website_sale.cart_lines">
+        <xpath expr="//div[@id='cart_products']" position="inside">
+            <br/>
+            <div class="d-flex justify-content-end mt-2">
+                <button class="js_delete_cart btn btn-primary" title="Clear Cart">Clear Cart</button>
+            </div>
+        </xpath>
+    </template>
+</odoo>

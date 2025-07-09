@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+        <record id="module_category_property_management" model="ir.module.category">
+            <field name="name">Property Management</field>
+        </record>
+
+        <record id="group_property_management_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="property_management.module_category_property_management"/>
+            <field name="comment">This user will have complete access to read and edit properties.</field>
+        </record>
+
+        <record id="group_property_management_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="property_management.module_category_property_management"/>
+            <field name="implied_ids" eval="[(4, ref('property_management.group_property_management_user'))]"/>
+            <field name="comment">This user will have complete access to Rent/Lease Contracts</field>
+        </record>
+</odoo>

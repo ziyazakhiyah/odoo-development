@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="menu_contract_form" model="website.menu">
+        <field name="name">Rent/Lease Contract</field>
+        <field name="url">/contract_webform</field>
+        <field name="parent_id" ref="website.main_menu"/>
+    </record>
+
+    <template id="create_contract" name="Create Rent/Lease Contract">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+                    <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
+                             data-snippet="s_title" data-scroll-background-ratio="1">
+                        <span class="s_parallax_bg oe_img_bg"
+                              style="background-image: url('/web/image/website.s_parallax_default_image'); background-position: 50% 0;"></span>
+                        <div class="o_we_bg_filter bg-black-50"></div>
+                        <div class="container">
+                            <h1>Rent/Lease Contract</h1>
+                        </div>
+                    </section>
+                    <section class="s_text_block pt40 pb40 o_colored_level " data-snippet="s_text_block">
+                        <div class="container s_allow_columns">
+                            <div class="row">
+                                <div class="col-lg-7 mt-4 mt-lg-0">
+                                    <p class="lead">
+                                        Streamline your rental process with our simple and efficient contract
+                                        creation tool. Whether you're leasing out a property or renting one,
+                                        generate legally structured agreements tailored to your needs — all in
+                                        just a few clicks.
+                                    </p>
+                                    <form id="contract_form"
+                                          action="/create/webcontract"
+                                          method="POST"
+                                          class="o_website_form">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <div class="form-group">
+                                            <label>Tenant</label>
+                                            <select name="tenant_id" class="form-control">
+                                                <t t-foreach="tenants" t-as="tenant">
+                                                    <option t-att-value="tenant.id">
+                                                        <t t-esc="tenant.name"/>
+                                                    </option>
+                                                    <q></q>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <br></br>
+                                        <div class="form-group">
+                                            <label>Type of Contract</label>
+                                            <select name="type" id="contract_type" class="form-control">
+                                                <option value="rent">Rent</option>
+                                                <option value="lease">Lease</option>
+                                            </select>
+                                        </div>
+                                        <br></br>
+                                        <div class="form-group">
+                                            <label>Start Date</label>
+                                            <input type="date" name="start_date" id="start_date" class="form-control"/>
+                                        </div>
+
+                                        <br></br>
+                                        <div class="form-group">
+                                            <label>End Date</label>
+                                            <input type="date" name="end_date" id="end_date" class="form-control"/>
+                                        </div>
+                                        <br></br>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 35%;">Property</th>
+                                                    <th>No. of Days</th>
+                                                    <th>Price</th>
+                                                    <th>Subtotal</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="property_lines_body">
+                                                <tr class="property-line">
+                                                    <td>
+                                                        <select name="property_id_0"
+                                                                class="form-control property-select">
+                                                            <option value="">Select Property</option>
+                                                            <t t-foreach="properties" t-as="prop">
+                                                                <option
+                                                                        t-att-value="prop.id"
+                                                                        t-att-data-rent="prop.rent"
+                                                                        t-att-data-legal="prop.legal_amount">
+                                                                    <t t-esc="prop.name"/>
+                                                                </option>
+                                                            </t>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" name="qty_0" class="form-control quantity"
+                                                               value="1" readonly="True"/>
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" name="price_0" class="form-control price"
+                                                               value="0.0" readonly="True"/>
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" name="price_0" class="form-control amount"
+                                                               value="0.0" readonly="True"/>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-danger remove-line">
+                                                            Delete
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="3" class="text-end fw-bold">Total</td>
+                                                    <td>
+                                                        <input type="number" id="total_amount" class="form-control"
+                                                               value="0.0" readonly="True"/>
+                                                    </td>
+                                                    <td></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                        <button type="button" class="btn btn-secondary mb-3 add-line">Add Line</button>
+
+                                        <br></br>
+                                        <div class="form-group">
+                                            <label>Note</label>
+                                            <textarea name="note" class="form-control"></textarea>
+                                        </div>
+                                        <br></br>
+                                        <div class="form-group text-end">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-lg-4 offset-lg-1 mt-4 mt-lg-0">
+                                    <h5>My Company</h5>
+                                    <ul class="list-unstyled mb-0 ps-2">
+                                        <li>
+                                            <i class="fa fa-map-marker fa-fw me-2"></i>
+                                            <span class="o_force_ltr">3575 Fake Buena Vista Avenue</span>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-phone fa-fw me-2"></i>
+                                            <span class="o_force_ltr">+1 555-555-5556</span>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-1x fa-fw fa-envelope me-2"></i>
+                                            <span>info@yourcompany.example.com</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <record id="contract_thanks" model="website.page">
+        <field name="name">Thanks</field>
+        <field name="type">qweb</field>
+        <field name="url">/contract-thank-you</field>
+        <field name="website_published">True</field>
+        <field name="key">property_management.contract_thanks</field>
+        <field name="arch" type="xml">
+            <t name="Thanks" t-name="property_management.contract_thanks">
+                <t t-call="website.layout">
+                    <div id="wrap">
+                        <div class="container">
+                            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+                            <div class="breadcrumb mb-4">
+                                <a href="/contract_webform" class="text-muted">Back to Form</a>
+                                <span class="mx-2">/</span>
+                                <span class="text-dark">Thank You</span>
+                            </div>
+                            <h1>Thanks!</h1>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="alert alert-success">
+                                        The Rent/Lease Contract has been created successfully.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </field>
+    </record>
+</odoo>

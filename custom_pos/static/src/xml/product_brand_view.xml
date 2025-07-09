@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+    <t t-name="custom_pos.Orderline" t-inherit="point_of_sale.Orderline" t-inherit-mode="extension">
+        <xpath expr="//ul[contains(@class, 'info-list')]" position="inside">
+            <li t-if="props.line.brand_id">
+                <div class="inline pt-2">
+                    Brand:
+                    <span class="pos-brand-name text-muted">
+                        <t t-esc="props.line.brand_id[1]"/>
+                    </span>
+                </div>
+            </li>
+            <li>
+                <div class="d-flex justify-content-end pt-2">
+                    <button class="btn btn-sm btn-outline-danger p-1" title="Remove" t-on-click="() => this.onClickRemove()">
+                        Remove
+                    </button>
+                </div>
+            </li>
+        </xpath>
+    </t>
+</templates>

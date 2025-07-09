@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="facilities_view_list" model="ir.ui.view">
+        <field name="name">facilities.view.list</field>
+        <field name="model">facilities</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="facilities_form_view" model="ir.ui.view">
+        <field name="name">facilities.view.form</field>
+        <field name="model">facilities</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_related_properties" type="object" class="oe_stat_button"
+                                icon="fa-building">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="number_related_properties"/>
+                                </span>
+                                <span class="o_stat_text">Properties</span>
+                            </div>
+                        </button>
+                    </div>
+                    <field name="name"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_property_management_facilities" model="ir.actions.act_window">
+        <field name="name">Facilities</field>
+        <field name="res_model">facilities</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

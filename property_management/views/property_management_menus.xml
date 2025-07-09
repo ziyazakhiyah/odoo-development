@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="menu_property_management_root" name="Property Management" sequence="10"/>
+
+    <menuitem id="menu_property_management_contract" name="Rental Contracts"
+              parent="menu_property_management_root"/>
+
+    <menuitem id="menu_property_management_rental_contracts" name="Rental Contracts"
+              parent="menu_property_management_contract"
+              action="action_property_management_contract"/>
+
+    <menuitem id="menu_property_management_invoices" name="Invoices"
+              parent="menu_property_management_contract"
+              action="action_property_management_invoices"/>
+
+    <menuitem id="menu_property_management_configuration" name="Configuration"
+              parent="menu_property_management_root"/>
+
+    <menuitem id="menu_property_management_property" name="Property"
+              parent="menu_property_management_configuration"
+              action="action_property_management_property"/>
+
+    <menuitem id="menu_property_management_facilities" name="Facilities"
+              parent="menu_property_management_configuration"
+              action="action_property_management_facilities"/>
+
+    <menuitem id="menu_property_management_reporting" name="Reporting"
+              parent="menu_property_management_root"/>
+
+    <menuitem id="menu_property_management_generate_report" name="Generate Report"
+              parent="menu_property_management_reporting"
+              action="action_contract_report"/>
+
+</odoo>

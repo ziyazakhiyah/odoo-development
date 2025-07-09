@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="contract_view_list" model="ir.ui.view">
+        <field name="name">contract.view.list</field>
+        <field name="model">contract</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="reference" readonly="True"/>
+                <field name="property_line_ids" widget="many2many_tags"/>
+                <field name="type"/>
+                <field name="tenant_id"/>
+                <field name="company_id"/>
+                <field name="state" widget="badge" decoration-success="state == 'confirmed'"
+                       decoration-warning="state == 'to_approve'" decoration-info="state == 'draft'"
+                       decoration-danger="state == 'expired'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="contract_form_view" model="ir.ui.view">
+        <field name="name">contract.view.form</field>
+        <field name="model">contract</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_create_draft_invoice" class="oe_highlight"
+                            invisible="state not in ('confirmed')"
+                            string="Create Invoice" type="object" help="Create Invoice"/>
+                    <button name="action_confirm" class="oe_highlight"
+                            invisible="state in ('confirmed','closed','expired','returned','to_approve')"
+                            string="Confirm" type="object" help="Move contract to confirmed state"/>
+                    <button name="action_approve" class="oe_highlight"
+                            invisible="state not in ('to_approve')"
+                            string="Approve" type="object" help="Contract Approved"
+                            groups="property_management.group_property_management_manager"/>
+                    <button name="action_close" class="oe_highlight"
+                            invisible="state in ('closed','to_approve','draft')"
+                            string="Close" type="object" help="Move contract to closed state"/>
+                    <button name="action_return" class="oe_highlight"
+                            invisible="state in ('returned','to_approve','draft')"
+                            string="Return" type="object" help="Move contract to returned state"/>
+                    <button name="action_expired" class="oe_highlight"
+                            invisible="state in ('expired','to_approve','draft')"
+                            string="Expired" type="object" help="Move contract to expired state"/>
+                    <button name="action_draft" class="oe_highlight" invisible="state in ('draft')" string="Draft"
+                            type="object"
+                            help="Move contract to draft state"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Paid" invisible="payment_state != 'paid'"/>
+                    <widget name="web_ribbon" title="In Payment" invisible="payment_state != 'in_payment'"/>
+                    <widget name="web_ribbon" title="Partial" invisible="payment_state != 'partial'"/>
+
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_related_invoices" type="object" class="oe_stat_button"
+                                icon="fa-pencil-square-o">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="number_related_invoices"/>
+                                </span>
+                                <span class="o_stat_text">Invoices</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="reference" readonly="True"/>
+                        </h1>
+                    </div>
+                    <group string="Information">
+                        <group>
+                            <field name="type" readonly="state != 'draft'"/>
+                            <field name="tenant_id" readonly="state != 'draft'"/>
+                            <field name="company_id" readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="start_date" widget="daterange" string="Start Date" class="oe_inline"
+                                   options="{'related_end_date': 'end_date'}" readonly="state != 'draft'"/>
+                            <field name="end_date" widget="daterange" string="End Date" class="oe_inline"
+                                   options="{'related_start_date': 'start_date'}" readonly="state != 'draft'"/>
+                            <field name="total_days"/>
+                            <field name="invoice_ids" readonly="1" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Properties">
+                            <field name="property_line_ids" readonly="state != 'draft'">
+                                <list editable="bottom">
+                                    <field name="property_id"/>
+                                    <field name="qty"/>
+                                    <field name="price"/>
+                                    <field name="subtotal"/>
+                                </list>
+                            </field>
+                            <group>
+                                <group>
+                                    <field name="note" nolabel="1" placeholder="Terms and conditions..." width="80%"/>
+                                </group>
+                                <group class="oe_subtotal_footer">
+                                    <field name="total_amount" class="oe_subtotal_footer_separator"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="contract_view_search" model="ir.ui.view">
+        <field name="name">contract.view.search</field>
+        <field name="model">contract</field>
+        <field name="arch" type="xml">
+            <search string="Search for contracts">
+                <field name="reference"/>
+                <filter string="Rental Contracts" name="filter_rent"
+                        domain="[('type', '=', 'rent')]"/>
+                <filter string="Lease Contracts" name="filter_lease"
+                        domain="[('type', '=', 'lease')]"/>
+                <filter string="Type of Contract" name="group_by_type" context="{'group_by':'type'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_property_management_contract" model="ir.actions.act_window">
+        <field name="name">Rental Contracts</field>
+        <field name="res_model">contract</field>
+        <field name="view_mode">list,form,search</field>
+    </record>
+</odoo>

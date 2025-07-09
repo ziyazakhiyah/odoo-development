@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="property_detail_page" name="Property Detail Page">
+        <t t-call="website.layout">
+            <div class="container py-5">
+                <div class="row">
+                    <t t-set="breadcrumbs_searchbar" t-value="True"/>
+                    <div class="breadcrumb mb-4">
+                        <a href="/properties" class="text-muted">
+                            <i class="fa fa-home"></i>
+                        </a>
+                        <span class="mx-2">/</span>
+                        <span>
+                            <t t-esc="property.name"></t>
+                        </span>
+                    </div>
+                    <div class="col-md-6 position-relative">
+                        <div class="position-relative d-inline-block"
+                             style="background-color: #d4edda; padding: 5px;">
+                            <t t-if="state == 'Draft'">
+                                <span class="position-absolute top-0 end-0 bg-success text-white px-2 py-1 rounded-start"
+                                      style="font-size: 0.9rem; z-index: 10;">
+                                    <t t-esc="'Available'"></t>
+                                </span>
+                            </t>
+                            <t t-else="">
+                                <span class="position-absolute top-0 end-0 bg-danger text-white px-2 py-1 rounded-start"
+                                      style="font-size: 0.9rem; z-index: 10;">
+                                    <t t-esc="state"></t>
+                                </span>
+                            </t>
+                            <t t-if="image_base64">
+                                <img t-att-src="'data:image/png;base64,' + image_base64"
+                                     class="img-fluid rounded"
+                                     alt="Property Image"/>
+                            </t>
+                            <t t-else="">
+                                <img src="/property_management/static/src/img/default_image.jpg"
+                                     class="img-fluid rounded"
+                                     alt="Default Image"/>
+                            </t>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h2 t-esc="property.name"/>
+                        <p class="text-muted">
+                            <t t-esc="property.description"></t>
+                        </p>
+                        <div class="d-flex">
+                            <i class="fa fa-map-marker fa-2x me-3 mt-1"></i>
+                            <div>
+                                <strong>
+                                    <div>
+                                        <t t-esc="property.city"/>
+                                        <t t-if="property.state_id">,
+                                            <t t-esc="property.state_id.name"/>
+                                        </t>
+                                    </div>
+                                </strong>
+                                <strong>
+                                    <div>
+                                        <t t-esc="property.country_id.name"/>
+                                    </div>
+                                </strong>
+                            </div>
+                        </div>
+                        <div class="card mt-4 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary mb-3">Property Details</h5>
+                                <ul class="list-unstyled mb-0">
+                                    <li class="mb-2">
+                                        <i class="fa fa-calendar me-2 text-muted"></i>
+                                        <strong>Built Date:</strong>
+                                        <t t-esc="property.built_date"/>
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fa fa-money me-2 text-muted"></i>
+                                        <strong>Rent:</strong>
+                                        <span>$
+                                            <t t-esc="property.rent"/>
+                                        </span>
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fa fa-gavel me-2 text-muted"></i>
+                                        <strong>Legal Amount:</strong>
+                                        <span>$
+                                            <t t-esc="property.legal_amount"/>
+                                        </span>
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fa fa-user me-2 text-muted"></i>
+                                        <strong>Owner:</strong>
+                                        <t t-esc="property.owner_id.name"/>
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fa fa-cogs me-2 text-muted"></i>
+                                        <strong>Facilities:</strong>
+                                        <t t-foreach="property.facilities_ids" t-as="facility">
+                                            <span t-esc="facility.name" class="badge bg-secondary me-1 mb-1"/>
+                                        </t>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

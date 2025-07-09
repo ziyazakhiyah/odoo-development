@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="category_template_properties" name="Properties">
+        <section class="properties_section">
+            <div class="container">
+                <div class="alert alert-info">
+                    <h4>Your Properties Tab snippet will be displayed here...
+                        Please save to view the snippet
+                    </h4>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="category_properties_snippet" inherit_id="website.snippets"
+              name="Properties Snippet">
+        <xpath expr="//snippets[@id='snippet_groups']" position="inside">
+            <t t-snippet="property_management.category_template_properties"
+               title="Properties"
+               data-name="Properties Snippet"
+               t-thumbnail="/property_management/static/src/img/default_image.jpg"/>
+        </xpath>
+    </template>
+
+</odoo>

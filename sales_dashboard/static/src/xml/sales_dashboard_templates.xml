@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+    <t t-name="sales_dashboard.SalesDashboardTemplate" owl="1">
+        <style>
+            .small-pie {
+                width: 300px !important;
+                height: 300px !important;
+                max-width: 100%;
+                margin: auto;
+            }
+            .clickable-row {
+                cursor: pointer;
+            }
+        </style>
+        <div class="o_sales_dashboard p-4" style="max-height: 90vh; overflow-y: auto;">
+            <h2 class="mb-4 fw-bold text-center text-primary">📊 Sales Dashboard</h2>
+            <div class="row mb-4">
+                <!-- Sales by Team -->
+                <div class="col-md-6 mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-primary text-white fw-bold">Sales by Team</div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <select class="form-select w-auto" t-on-change="onChangeTeamFilter">
+                                <option value="this_month">This Month</option>
+                                <option value="last_month">Last Month</option>
+                                <option value="last_quarter">Last Quarter</option>
+                                <option value="this_year">This Year</option>
+                            </select>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="salesByTeamChart" class="small-pie"></canvas>
+                            <table class="table table-bordered table-sm table-hover mt-3">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Team</th>
+                                        <th class="text-end">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="state.data.sales_by_team || []" t-as="team" t-key="team.id">
+                                        <tr class="clickable-row" t-on-click="() => goToRecord('crm.team', team.id)">
+                                            <td t-esc="team.name"/>
+                                            <td class="text-end fw-bold" t-esc="team.amount"/>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sales by Person -->
+                <div class="col-md-6 mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-info text-white fw-bold">Sales by Person</div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <select class="form-select w-auto" t-on-change="onChangePersonFilter">
+                                <option value="this_month">This Month</option>
+                                <option value="last_month">Last Month</option>
+                                <option value="last_quarter">Last Quarter</option>
+                                <option value="this_year">This Year</option>
+                            </select>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="salesByPersonChart" class="small-pie"></canvas>
+                            <table class="table table-bordered table-sm table-hover mt-3">
+                                <thead class="table-light">
+                                    <tr><th>Salesperson</th><th class="text-end">Amount</th></tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="state.data.sales_by_person || []" t-as="person" t-key="person.id">
+                                        <tr class="clickable-row" t-on-click="() => goToRecord('res.users', person.id)">
+                                            <td t-esc="person.name"/>
+                                            <td class="text-end fw-bold" t-esc="person.amount"/>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Row 2: Top & Lowest Products -->
+            <div class="row mb-4">
+                <!-- Top Products -->
+                <div class="col-md-6 mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-success text-white fw-bold">Top Selling Products</div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div class="d-flex gap-2">
+                                <select class="form-select form-select-sm w-auto" t-on-change="onChangeProductFilter">
+                                    <option value="this_month">This Month</option>
+                                    <option value="last_month">Last Month</option>
+                                    <option value="last_quarter">Last Quarter</option>
+                                    <option value="this_year">This Year</option>
+                                </select>
+                                <select class="form-select form-select-sm w-auto" t-on-change="onChangeProductCategory">
+                                    <option value="">All Categories</option>
+                                    <t t-foreach="state.data.product_categories || []" t-as="cat" t-key="cat.id">
+                                        <option t-att-value="cat.id" t-esc="cat.name"/>
+                                    </t>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="topProductsChart" height="200"></canvas>
+                            <table class="table table-bordered table-sm table-hover mt-3">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Product</th>
+                                        <th class="text-end">Quantity Sold</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="state.data.top_products || []" t-as="prod" t-key="prod.id">
+                                        <tr class="clickable-row" t-on-click="() => goToRecord('product.product', prod.id)">
+                                            <td t-esc="prod.name"/>
+                                            <td class="text-end fw-bold" t-esc="prod.qty"/>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Lowest Products -->
+                <div class="col-md-6 mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-danger text-white fw-bold">Least Selling Products</div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div class="d-flex gap-2">
+                                <select class="form-select form-select-sm w-auto" t-on-change="onChangeLowProductFilter">
+                                    <option value="this_month">This Month</option>
+                                    <option value="last_month">Last Month</option>
+                                    <option value="last_quarter">Last Quarter</option>
+                                    <option value="this_year">This Year</option>
+                                </select>
+                                <select class="form-select form-select-sm w-auto" t-on-change="onChangeLowProductCategory">
+                                    <option value="">All Categories</option>
+                                    <t t-foreach="state.data.product_categories || []" t-as="cat" t-key="cat.id">
+                                        <option t-att-value="cat.id" t-esc="cat.name"/>
+                                    </t>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="lowestProductsChart" height="200"></canvas>
+                            <table class="table table-bordered table-sm table-hover mt-3">
+                                <thead class="table-light">
+                                    <tr><th>Product</th><th class="text-end">Quantity Sold</th></tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="state.data.lowest_products || []" t-as="prod" t-key="prod.id">
+                                        <tr class="clickable-row" t-on-click="() => goToRecord('product.product', prod.id)">
+                                            <td t-esc="prod.name"/>
+                                            <td class="text-end fw-bold" t-esc="prod.qty"/>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Row 3: Top Customers -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-warning text-white fw-bold">Top 10 Customers</div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <select class="form-select w-auto" t-on-change="onChangeCustomerFilter">
+                                <option value="this_month">This Month</option>
+                                <option value="last_month">Last Month</option>
+                                <option value="last_quarter">Last Quarter</option>
+                                <option value="this_year">This Year</option>
+                            </select>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered table-sm table-hover">
+                                <thead class="table-light">
+                                    <tr><th>Customer</th><th class="text-end">Amount</th></tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="state.data.top_customers || []" t-as="cust" t-key="cust.id">
+                                        <tr class="clickable-row" t-on-click="() => goToRecord('res.partner', cust.id)">
+                                            <td t-esc="cust.name"/>
+                                            <td class="text-end fw-bold" t-esc="cust.amount"/>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Row 4: Order & Invoice Status -->
+            <div class="row">
+                <!-- Order Status -->
+                <div class="col-md-6 mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-secondary text-black fw-bold">Order Status</div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <select class="form-select w-auto" t-on-change="onChangeOrderFilter">
+                                <option value="this_month">This Month</option>
+                                <option value="last_month">Last Month</option>
+                                <option value="last_quarter">Last Quarter</option>
+                                <option value="this_year">This Year</option>
+                            </select>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="orderStatusChart" class="small-pie"></canvas>
+                            <table class="table table-bordered table-sm table-hover mt-3">
+                                <thead class="table-light">
+                                    <tr><th>Status</th><th class="text-end">Count</th></tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="state.data.order_status || []" t-as="order" t-key="order.status">
+                                        <tr>
+                                            <td t-esc="order.status"/>
+                                            <td class="text-end fw-bold" t-esc="order.count"/>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Invoice Status -->
+                <div class="col-md-6 mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-dark text-white fw-bold">Invoice Status</div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <select class="form-select w-auto" t-on-change="onChangeInvoiceFilter">
+                                <option value="this_month">This Month</option>
+                                <option value="last_month">Last Month</option>
+                                <option value="last_quarter">Last Quarter</option>
+                                <option value="this_year">This Year</option>
+                            </select>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="invoiceStatusChart" class="small-pie"></canvas>
+                            <table class="table table-bordered table-sm table-hover mt-3">
+                                <thead class="table-light">
+                                    <tr><th>Status</th><th class="text-end">Count</th></tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="state.data.invoice_status || []" t-as="inv" t-key="inv.status">
+                                        <tr>
+                                            <td t-esc="inv.status"/>
+                                            <td class="text-end fw-bold" t-esc="inv.count"/>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

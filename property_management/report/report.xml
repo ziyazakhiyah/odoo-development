@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="contract_report_action" model="ir.actions.report">
+        <field name="name">Rent/Lease Contract Report</field>
+        <field name="model">contract.generate.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">property_management.contract_report_template</field>
+        <field name="report_file">property_management.contract_report_template</field>
+        <field name="paperformat_id" ref="property_management.paperformat_a3"/>
+    </record>
+</odoo>
+

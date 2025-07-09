@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="contract_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="oe_structure">
+                        <div class="text-center">
+                            <h2>Rent/Lease Report</h2>
+                        </div>
+                        <br></br>
+                        <hr></hr>
+                        <br></br>
+                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 1em;">
+                            <tbody>
+                                <tr>
+                                    <t t-if="form.get('start_date')">
+                                        <td style="font-weight: bold;">From Date:</td>
+                                        <td>
+                                            <t t-esc="form['start_date']"/>
+                                        </td>
+                                    </t>
+                                    <t t-if="form.get('end_date')">
+                                        <td style="font-weight: bold;">To Date:</td>
+                                        <td>
+                                            <t t-esc="form['end_date']"/>
+                                        </td>
+                                    </t>
+                                    <t t-if="form.get('state')">
+                                        <td style="font-weight: bold;">State:</td>
+                                        <td>
+                                            <t t-esc="form['state_label']"/>
+                                        </td>
+                                    </t>
+                                    <t t-if="form.get('type')">
+                                        <td style="font-weight: bold;">Type:</td>
+                                        <td>
+                                            <t t-esc="form['type_label']"/>
+                                        </td>
+                                    </t>
+                                    <t t-if="form.get('property_id')">
+                                        <td style="font-weight: bold;">Property:</td>
+                                        <td>
+                                            <t t-esc="form['property_id'][1]"/>
+                                        </td>
+                                    </t>
+                                    <t t-if="form.get('tenant_id')">
+                                        <td style="font-weight: bold;">Tenant:</td>
+                                        <td>
+                                            <t t-esc="form['tenant_id'][1]"/>
+                                        </td>
+                                    </t>
+                                    <t t-if="form.get('owner_id')">
+                                        <td style="font-weight: bold;">Owner:</td>
+                                        <td>
+                                            <t t-esc="form['owner_id'][1]"/>
+                                        </td>
+                                    </t>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr style="background-color: #444">
+                                    <th style="color: white;">Reference</th>
+                                    <th style="color: white;">Tenant</th>
+                                    <th style="color: white;">Property</th>
+                                    <th style="color: white;">Owner</th>
+                                    <th style="color: white;">Type</th>
+                                    <th style="color: white;">Start Date</th>
+                                    <th style="color: white;">End Date</th>
+                                    <th style="color: white;">Amount</th>
+                                    <th style="color: white;">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="contracts" t-as="contract">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="contract['reference']"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="contract['tenant_name']"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="contract['property_name']"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="contract['property_owner']"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="contract['type_label']"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="contract['start_date']"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="contract['end_date']"/>
+                                        </td>
+                                        <td style="text-align: right;">
+                                            <t t-esc="contract['total_amount']"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="contract['state_label']"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

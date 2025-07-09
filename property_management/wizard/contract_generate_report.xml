@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="contract_report_view_form" model="ir.ui.view">
+        <field name="name">contract.report.view.form</field>
+        <field name="model">contract.generate.report</field>
+        <field name="arch" type="xml">
+            <form string="Rent/Lease Report">
+                <group>
+                    <field name="start_date" string="Start Date"/>
+                    <field name="end_date" string="End Date"/>
+                    <field name="state" string="State"/>
+                    <field name="property_id" string="Property"/>
+                    <field name="owner_id" string="Owner"/>
+                    <field name="tenant_id" string="Tenant"/>
+                    <field name="type" string="Type"/>
+                </group>
+                <footer>
+                    <button name="action_print_report" string="PDF" type="object" class="btn-primary"/>
+                    <button name="action_print_report_xlsx" string="XLSX" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_contract_report" model="ir.actions.act_window">
+        <field name="name">Rent/Lease report</field>
+        <field name="res_model">contract.generate.report</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="contract_report_view_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>
