@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="university_iit_madras" model="university">
+        <field name="name">Indian Institute of Technology Madras</field>
+        <field name="code">IITM001</field>
+        <field name="type">public</field>
+    </record>
+    <record id="university_iisc" model="university">
+        <field name="name">Indian Institute of Science</field>
+        <field name="code">IISC002</field>
+        <field name="type">public</field>
+    </record>
+    <record id="university_amity" model="university">
+        <field name="name">Amity University</field>
+        <field name="code">AMTY003</field>
+        <field name="type">private</field>
+    </record>
+    <record id="university_vit" model="university">
+        <field name="name">Vellore Institute of Technology</field>
+        <field name="code">VIT004</field>
+        <field name="type">private</field>
+    </record>
+    <record id="university_jnu" model="university">
+        <field name="name">Jawaharlal Nehru University</field>
+        <field name="code">JNU005</field>
+        <field name="type">public</field>
+    </record>
+</odoo>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="events_view_form" model="ir.ui.view">
+        <field name="name">events.view.form</field>
+        <field name="model">events</field>
+        <field name="arch" type="xml">
+            <form string="Event">
+                <header>
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label class="o_form_label" for="event_name">Event Name</label>
+                        <h1>
+                            <field name="event_name" string="Event Name" required="True"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Event Details">
+                            <field name="event_type" string="Event Type"/>
+                            <field name="start_date" string="Start Date"/>
+                            <field name="end_date" string="End Date"/>
+                        </group>
+                        <group string="University">
+                            <field name="university_id"/>
+                            <field name="university_code"/>
+                            <field name="university_type"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Event Slots">
+                            <field name="event_line_ids">
+                                <list editable="bottom">
+                                    <field name="content" string="Event"/>
+                                    <field name="start_time" string="Start Time"/>
+                                    <field name="end_time" string="End Time"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    <record id="events_view_list" model="ir.ui.view">
+        <field name="name">events.view.list</field>
+        <field name="model">events</field>
+        <field name="arch" type="xml">
+            <list string="Event">
+                <field name="event_name" string="Event Name" required="True"/>
+                <field name="event_type" string="Event Type"/>
+                <field name="start_date" string="Start Date"/>
+                <field name="end_date" string="End Date"/>
+            </list>
+        </field>
+    </record>
+    <record id="events_action" model="ir.actions.act_window">
+        <field name="name">Events</field>
+        <field name="res_model">events</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem name="Events"
+              id="events_menu_root"/>
+    <menuitem name="Events"
+              id="events_menu"
+              parent="events_menu_root"
+              action="events_action"/>
+</odoo>

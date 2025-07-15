@@ -51,7 +51,6 @@
                     <widget name="web_ribbon" title="Paid" invisible="payment_state != 'paid'"/>
                     <widget name="web_ribbon" title="In Payment" invisible="payment_state != 'in_payment'"/>
                     <widget name="web_ribbon" title="Partial" invisible="payment_state != 'partial'"/>
-
                     <div class="oe_button_box" name="button_box">
                         <button name="action_open_related_invoices" type="object" class="oe_stat_button"
                                 icon="fa-pencil-square-o">

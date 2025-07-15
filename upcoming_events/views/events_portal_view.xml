@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_home_events" inherit_id="portal.portal_my_home" name="Upcoming Events">
+        <xpath expr="//div[@id='portal_vendor_category']" position="inside">
+            <div class="o_portal_index_card col-md-6 order-2">
+                <a href="/my/events" title="Upcoming Events"
+                   class="d-flex gap-2 gap-md-3 py-3 pe-2 px-md-3 h-100 rounded text-decoration-none bg-100">
+                    <div class="o_portal_icon d-block align-self-start">
+                        <img src="/upcoming_events/static/src/img/event.svg" loading="lazy"/>
+                    </div>
+                    <div class="">
+                        <div class="mt-0 mb-1 fs-5 fw-normal lh-1 d-flex gap-2">
+                            <span>Upcoming Events</span>
+                        </div>
+                        <div class="opacity-75">
+                            Follow the upcoming events
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="portal_events" name="Upcoming Events">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Upcoming Events</t>
+            </t>
+            <section class="s_title">
+                    <div class="container">
+                        <h1>Upcoming Events</h1>
+                    </div>
+                <br/>
+            </section>
+            <t t-if="not events">
+                <p class="alert alert-warning">There are currently no upcoming events.</p>
+            </t>
+            <t t-if="events">
+                <div class="accordion" id="eventAccordion">
+                    <t t-foreach="events" t-as="event">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" t-att-id="'heading-' + str(event.id)">
+                                <button class="accordion-button collapsed" type="button"
+                                        data-bs-toggle="collapse"
+                                        t-att-data-bs-target="'#collapse-' + str(event.id)">
+                                    <div class="d-flex flex-column w-100">
+                                        <div class="fw-bold fs-6">
+                                            <span t-field="event.event_name"/>
+                                            (<span t-field="event.event_type"/>)
+                                        </div>
+                                        <div class="text-muted mt-1">
+                                            <t t-if="event.start_date and event.end_date">
+                                                <span t-field="event.start_date"/>
+                                                —
+                                                <span t-field="event.end_date"/>
+                                                |
+                                            </t>
+                                            <span t-field="event.university_id.name"/>
+                                        </div>
+                                    </div>
+                                </button>
+                            </h2>
+                            <div class="accordion-collapse collapse"
+                                 t-att-id="'collapse-' + str(event.id)"
+                                 data-bs-parent="#eventAccordion">
+                                <div class="accordion-body">
+                                    <t t-if="event.event_line_ids">
+                                        <table class="table table-sm table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Event</th>
+                                                    <th>Start Time</th>
+                                                    <th>End Time</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="event.event_line_ids" t-as="line">
+                                                    <tr>
+                                                        <td>
+                                                            <span t-field="line.content"/>
+                                                        </td>
+                                                        <td>
+                                                            <span t-field="line.start_time"/>
+                                                        </td>
+                                                        <td>
+                                                            <span t-field="line.end_time"/>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                            </tbody>
+                                        </table>
+                                    </t>
+                                    <t t-if="not event.event_line_ids">
+                                        <p class="text-muted">No activities added for this event.</p>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

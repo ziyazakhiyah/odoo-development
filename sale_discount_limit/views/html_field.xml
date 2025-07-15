@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-        <record id="html_field_view_form" model="ir.ui.view">
+    <record id="html_field_view_form" model="ir.ui.view">
         <field name="name">html_field.view.form.inherit.sale</field>
         <field name="model">checkout.layout</field>
         <field name="inherit_id" ref="base.res_config_settings_view_form"/>

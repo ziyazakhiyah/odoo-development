@@ -27,6 +27,7 @@
         <field name="rent">6000</field>
         <field name="state_property">draft</field>
         <field name="owner_id" ref="property_management.res_partner_jose_antony"/>
+        <field name="property_image" type="base64" file="property_management/static/img/lakeview.jpg"/>
     </record>
 
     <record id="2" model="property">
@@ -36,14 +37,14 @@
         <field name="city">Gangnam</field>
         <field name="built_date">2023-01-01</field>
         <field name="can_be_sold">True</field>
-        <field name="description">Willow Creek brings modern elegance to the heart of Korea. Featuring sleek
-            architecture and smart living spaces, this community is designed for urban professionals seeking convenience
+        <field name="description">Willow Creek brings modern elegance to the heart of Korea. Featuring sleek architecture and smart living spaces, this community is designed for urban professionals seeking convenience
             without compromising on style or serenity.
         </field>
         <field name="legal_amount">4000</field>
         <field name="rent">6000</field>
         <field name="state_property">draft</field>
         <field name="owner_id" ref="property_management.res_partner_anita_johnson"/>
+        <field name="property_image" type="base64" file="property_management/static/img/willow.jpg"/>
     </record>
 
     <record id="3" model="property">
@@ -53,14 +54,14 @@
         <field name="city">Cultural City</field>
         <field name="built_date">2022-01-01</field>
         <field name="can_be_sold">True</field>
-        <field name="description">Rising above the vibrant cityscape of Abu Dhabi, Serene Skyline offers breathtaking
-            views and premium amenities. With its contemporary design and central location, it’s perfect for those who
+        <field name="description">Rising above the vibrant cityscape of Abu Dhabi, Serene Skyline offers breathtaking views and premium amenities. With its contemporary design and central location, it’s perfect for those who
             crave luxury living with a cosmopolitan touch.
         </field>
         <field name="legal_amount">3000</field>
         <field name="rent">8000</field>
         <field name="state_property">draft</field>
         <field name="owner_id" ref="property_management.res_partner_olivia_roger"/>
+        <field name="property_image" type="base64" file="property_management/static/img/serene.jpg"/>
     </record>
 
     <record id="4" model="property">
@@ -70,14 +71,14 @@
         <field name="city">Essex City</field>
         <field name="built_date">2022-01-01</field>
         <field name="can_be_sold">True</field>
-        <field name="description">Located in the serene countryside of Essex, Majestic Manors blends British elegance
-            with modern comfort. These stately homes feature classic architecture, expansive gardens, and luxurious
+        <field name="description">Located in the serene countryside of Essex, Majestic Manors blends British elegance  with modern comfort. These stately homes feature classic architecture, expansive gardens, and luxurious
             interiors—offering a distinguished lifestyle in one of the UK's most sought-after regions.
         </field>
         <field name="legal_amount">18000</field>
         <field name="rent">10000</field>
         <field name="state_property">draft</field>
         <field name="owner_id" ref="property_management.res_partner_olivia_roger"/>
+        <field name="property_image" type="base64" file="property_management/static/img/majestic-manor.jpg"/>
     </record>
 
     <record id="5" model="property">
@@ -87,13 +88,13 @@
         <field name="city">Alabama City</field>
         <field name="built_date">2020-01-01</field>
         <field name="can_be_sold">True</field>
-        <field name="description">Charming and cozy, Maple Grove is a picturesque community set among tree-lined paths
-            and vibrant foliage. It’s the perfect haven for families and nature lovers looking for a peaceful yet
+        <field name="description">Charming and cozy, Maple Grove is a picturesque community set among tree-lined paths and vibrant foliage. It’s the perfect haven for families and nature lovers looking for a peaceful yet
             well-connected lifestyle.
         </field>
         <field name="legal_amount">1000</field>
         <field name="rent">5000</field>
         <field name="state_property">draft</field>
         <field name="owner_id" ref="property_management.res_partner_jose_antony"/>
+        <field name="property_image" type="base64" file="property_management/static/img/maple.jpg"/>
     </record>
 </odoo>
