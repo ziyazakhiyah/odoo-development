@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates id="template" xml:space="preserve">
     <t t-name="sales_dashboard.SalesDashboardTemplate" owl="1">
-        <style>
-            .small-pie {
-                width: 300px !important;
-                height: 300px !important;
-                max-width: 100%;
-                margin: auto;
-            }
-            .clickable-row {
-                cursor: pointer;
-            }
-        </style>
         <div class="o_sales_dashboard p-4" style="max-height: 90vh; overflow-y: auto;">
             <h2 class="mb-4 fw-bold text-center text-primary">📊 Sales Dashboard</h2>
             <div class="row mb-4">

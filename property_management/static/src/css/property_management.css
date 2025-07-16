@@ -1,0 +1,14 @@
+.status-box {
+position: absolute;
+top: 20px;
+right: 20px;
+padding: 0.75rem 1.5rem;
+border-radius: 0.5rem;
+color: white;
+font-size: 1.25rem;
+font-weight: bold;
+z-index: 10;
+}
+.relative-container {
+position: relative;
+}

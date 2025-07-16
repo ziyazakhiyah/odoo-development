@@ -12,7 +12,8 @@
     'assets': {
         'web.assets_backend': [
             'sales_dashboard/static/src/js/sales_dashboard.js',
-            'sales_dashboard/static/src/xml/sales_dashboard_templates.xml'
+            'sales_dashboard/static/src/xml/sales_dashboard_templates.xml',
+            'sales_dashboard/static/src/css/sales_dashboard_style.css',
         ],
     },
     'installable': True,

@@ -3,6 +3,7 @@ from odoo import fields, models
 
 
 class Events(models.Model):
+    """Model that represents university events"""
     _name = 'events'
     _description = 'Event'
     _inherit = ['mail.thread', 'mail.activity.mixin']

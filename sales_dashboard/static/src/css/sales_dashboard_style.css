@@ -1,0 +1,9 @@
+.small-pie {
+    width: 300px !important;
+    height: 300px !important;
+    max-width: 100%;
+    margin: auto;
+}
+.clickable-row {
+    cursor: pointer;
+}

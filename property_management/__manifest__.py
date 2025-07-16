@@ -33,6 +33,7 @@
     'assets': {
         'web.assets_backend': [
             'property_management/static/src/js/action_manager.js',
+            'property_management/static/src/css/property_management.css'
         ],
         'web.assets_frontend': [
             'property_management/static/src/js/contract_form.js',

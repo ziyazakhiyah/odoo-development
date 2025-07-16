@@ -85,23 +85,6 @@
             <t t-elif="contract.state == 'expired'">
                 <t t-set="badge_class" t-value="'bg-danger'"/>
             </t>
-
-            <style>
-                .status-box {
-                position: absolute;
-                top: 20px;
-                right: 20px;
-                padding: 0.75rem 1.5rem;
-                border-radius: 0.5rem;
-                color: white;
-                font-size: 1.25rem;
-                font-weight: bold;
-                z-index: 10;
-                }
-                .relative-container {
-                position: relative;
-                }
-            </style>
             <div class="container mt-5 relative-container">
                 <div t-attf-class="status-box #{badge_class}">
                     <t t-esc="state_label"/>
