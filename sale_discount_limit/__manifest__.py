@@ -9,7 +9,7 @@
         'views/res_config_settings_views.xml',
         'views/cart_lines.xml',
     ],
-    'depends': ['sale','sale_management'],
+    'depends': ['sale','sale_management', 'website_sale'],
 
     'assets': {
         'web.assets_frontend': [

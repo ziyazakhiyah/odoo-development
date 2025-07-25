@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="ir_cron_send_monthly_mail" model="ir.cron">
+        <field name="name">Monthly Sales Report</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">months</field>
+        <field name="model_id" ref="monthly_weekly_sales_report.model_sales_report_manager"/>
+        <field name="code">model._send_sales_report('monthly')</field>
+        <field name="state">code</field>
+        <field name="active">True</field>
+    </record>
+    <record id="ir_cron_send_weekly_mail" model="ir.cron">
+        <field name="name">Weekly Sales Report</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">weeks</field>
+        <field name="model_id" ref="monthly_weekly_sales_report.model_sales_report_manager"/>
+        <field name="code">model._send_sales_report('weekly')</field>
+        <field name="state">code</field>
+        <field name="active">True</field>
+    </record>
+</odoo>

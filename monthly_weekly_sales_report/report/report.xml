@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_sales_summary_pdf" model="ir.actions.report">
+        <field name="name">Sales Summary Report</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">monthly_weekly_sales_report.report_sales_summary_document</field>
+        <field name="report_file">monthly_weekly_sales_report.report_sales_summary_document</field>
+    </record>
+</odoo>

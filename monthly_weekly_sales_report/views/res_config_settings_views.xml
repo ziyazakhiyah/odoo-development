@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+       <field name="name">res.config.settings.view.form.inherit.sales_report</field>
+       <field name="model">res.config.settings</field>
+       <field name="priority" eval="15"/>
+       <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+       <field name="arch" type="xml">
+           <xpath expr="//form" position="inside">
+               <app data-string="Sales Report"
+                    string="Sales Report" name="sales_report">
+                   <block title="Sales Report Settings"
+                          name="sales_report_settings">
+                       <setting string="Report Frequency"
+                                help="Choose how often the report should be sent — weekly (every Monday) or monthly (1st of each month)."
+                                id="frequency_setting">
+                           <field name="frequency"/>
+                       </setting>
+                       <setting string="Customers"
+                                help="Select customers to whom the report will be sent. Only customers with email addresses will receive the report."
+                                id="customer_setting">
+                           <field name="customer_ids" widget="many2many_tags" />
+                       </setting>
+                       <setting string="Sales Team"
+                                help="Select sales team."
+                                id="sales_team_setting">
+                           <field name="sales_team_ids" widget="many2many_tags"/>
+                       </setting>
+                       <setting string="From Date / To Date"
+                                help="Defines the period from which sales data should be fetched. If left blank, it will automatically fetch based on frequency."
+                                id="date_setting">
+                           <field name="from_date"/> ->
+                           <field name="to_date"/>
+                       </setting>
+                   </block>
+               </app>
+           </xpath>
+       </field>
+   </record>
+</odoo>

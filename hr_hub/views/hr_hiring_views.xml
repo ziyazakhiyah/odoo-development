@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View -->
+    <record id="hr_hiring_view_form" model="ir.ui.view">
+        <field name="name">hr.hiring.view.form</field>
+        <field name="model">hr.hiring</field>
+        <field name="arch" type="xml">
+            <form string="New Hiring">
+                <header>
+                    <button name="action_review" string="Submit for Review" class="oe_highlight" type="object"
+                            invisible="state != 'draft'"/>
+                    <button name="action_review_approve" string="Approve" class="oe_highlight"
+                            type="object"
+                            invisible="state != 'hr_review'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Personal Information">
+                            <field name="check_readonly" invisible="True"/>
+                            <field name="name" readonly="check_readonly"/>
+                            <field name="email" widget="email" readonly="check_readonly"/>
+                            <field name="phone" widget="phone" readonly="check_readonly"/>
+                            <field name="country_id" options="{'no_create': True, 'no_open': True}"
+                                   readonly="check_readonly"/>
+                        </group>
+                        <group string="Work Information">
+                            <field name="department_id" options="{'no_create': True, 'no_open': True}"
+                                   readonly="check_readonly"/>
+                            <field name="job_id" options="{'no_create': True, 'no_open': True}"
+                                   readonly="check_readonly"/>
+                            <field name="company_id" invisible="True"/>
+                            <field name="currency_id" invisible="True"/>
+                        </group>
+                        <group string="Salary Information">
+                            <label for="wage"/>
+                            <div class="o_row mw-50" name="wage">
+                                <field name="wage" class="oe_inline o_hr_narrow_field" nolabel="1"
+                                       readonly="check_readonly"/>
+                                <div class="mb-3" name="wage_period_label">/ month</div>
+                            </div>
+                            <label for="housing_allowance"/>
+                            <div class="o_row mw-50" name="housing_allowance">
+                                <field name="housing_allowance" class="oe_inline o_hr_narrow_field" nolabel="1"
+                                       readonly="check_readonly"/>
+                                <div class="mb-3" name="housing_allowance_period_label">/ month</div>
+                            </div>
+                            <label for="transportation_allowance"/>
+                            <div class="o_row mw-50" name="transportation_allowance">
+                                <field name="transportation_allowance" class="oe_inline o_hr_narrow_field" nolabel="1"
+                                       readonly="check_readonly"/>
+                                <div class="mb-3" name="transportation_allowance_period_label">/ month</div>
+                            </div>
+                            <label for="other_allowances"/>
+                            <div class="o_row mw-50" name="other_allowances">
+                                <field name="other_allowances" class="oe_inline o_hr_narrow_field" nolabel="1"
+                                       readonly="check_readonly"/>
+                                <div class="mb-3" name="other_allowances_period_label">/ month</div>
+                            </div>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- List View -->
+    <record id="hr_hiring_view_list" model="ir.ui.view">
+        <field name="name">hr.hiring.view.list</field>
+        <field name="model">hr.hiring</field>
+        <field name="arch" type="xml">
+            <list string="New Hiring">
+                <field name="name"/>
+                <field name="department_id"/>
+                <field name="job_id"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="hr_hiring_action" model="ir.actions.act_window">
+        <field name="name">New Hiring</field>
+        <field name="res_model">hr.hiring</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Hiring!
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem name="HR Hub"
+              id="menu_hr_hub_root" web_icon="hr_hub,static/description/icon.png"/>
+    <menuitem id="hr_hiring_menu"
+              name="New Hiring"
+              parent="menu_hr_hub_root"
+              action="hr_hiring_action"
+              sequence="10"/>
+</odoo>

@@ -46,11 +46,9 @@ class Property(models.Model):
         this is the only linked property, and also delete their invoices."""
         RentLine = self.env['rent.move.line']
         AccountMove = self.env['account.move']
-
         for property_rec in self:
             rent_lines = RentLine.search([('property_id', '=', property_rec.id)])
             related_contracts = rent_lines.mapped('contract_id')
-
             for contract in related_contracts:
                 all_lines = RentLine.search([('contract_id', '=', contract.id)])
                 linked_property_ids = all_lines.mapped('property_id.id')
@@ -58,7 +56,6 @@ class Property(models.Model):
                     invoices = AccountMove.search([('contract_id', '=', contract.id)])
                     invoices.unlink()
                     contract.unlink()
-
         return super().unlink()
 
     def action_open_rental_contracts(self):
@@ -66,7 +63,6 @@ class Property(models.Model):
         self.ensure_one()
         rent_lines = self.env['rent.move.line'].search([('property_id', '=', self.id)])
         contract_ids = rent_lines.mapped('contract_id').ids
-
         return {
             'type': 'ir.actions.act_window',
             'name': "Rental Contracts",

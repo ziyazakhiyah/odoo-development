@@ -134,17 +134,14 @@ class Contract(models.Model):
         """Function to create invoice"""
         invoice_lines = []
         invoice_lines_all = self.invoice_ids.filtered(lambda inv: inv.state == 'posted').mapped('invoice_line_ids')
-
         invoiced_qty_by_line = {}
         for line in invoice_lines_all:
             invoiced_qty_by_line[line.property_line_id.id] = invoiced_qty_by_line.get(line.property_line_id.id,
                                                                                       0) + line.quantity
-
         for line in self.property_line_ids:
             total_qty = line.contract_id.total_days or 1
             invoiced_qty = invoiced_qty_by_line.get(line.id, 0)
             remaining_qty = total_qty - invoiced_qty
-
             if remaining_qty > 0:
                 invoice_lines.append((0, 0, {
                     'name': line.property_id.name,
@@ -152,23 +149,19 @@ class Contract(models.Model):
                     'price_unit': line.price or 0.0,
                     'property_line_id': line.id,
                 }))
-
         if not invoice_lines:
             raise ValidationError("All property lines are already fully invoiced.")
-
         existing_invoice = self.env['account.move'].search([
             ('contract_id', '=', self.id),
             ('state', '=', 'draft'),
             ('move_type', '=', 'out_invoice'),
         ], limit=1)
-
         if existing_invoice:
             existing_invoice.invoice_line_ids.unlink()
             existing_invoice.write({
                 'invoice_line_ids': invoice_lines
             })
             return existing_invoice
-
         return self.env['account.move'].create({
             'move_type': 'out_invoice',
             'partner_id': self.tenant_id.id,

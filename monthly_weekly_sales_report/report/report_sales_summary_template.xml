@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_sales_summary_document">
+        <t t-name="monthly_weekly_sales_report.report_sales_summary_document">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <h2>Sales Report for <t t-esc="partner.name"/></h2>
+                    <p>Generated on: <t t-esc="report_date"/></p>
+                    <p>Customer: <t t-esc="partner.name"/></p>
+                    <p>Date from: <t t-esc="date_from"/></p>
+                    <p>Date to: <t t-esc="date_to"/></p>
+
+                    <t t-if="sales_team">
+                        <p>Sales Team: <t t-esc="sales_team"/></p>
+                    </t>
+
+                    <table class="table table-sm table-bordered" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Order Reference</th>
+                                <th>Order Date</th>
+                                <t t-if="not sales_team">
+                                    <th>Sales Team</th>
+                                </t>
+                                <th>Total Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="orders" t-as="order">
+                                <tr>
+                                    <td><t t-esc="order['name']"/></td>
+                                    <td><t t-esc="order['date_order']"/></td>
+                                    <t t-if="not sales_team">
+                                        <td><t t-esc="order['sales_team'] or '-'"/></td>
+                                    </t>
+                                    <td><t t-esc="order['amount_total']"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="100%">
+                                        <table class="table table-sm table-striped" style="width: 100%; margin-top: 5px;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Product</th>
+                                                    <th>Quantity</th>
+                                                    <th>Unit Price</th>
+                                                    <th>Subtotal</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="order['order_line']" t-as="line">
+                                                    <tr>
+                                                        <td><t t-esc="line['product']"/></td>
+                                                        <td><t t-esc="line['qty']"/></td>
+                                                        <td><t t-esc="line['price_unit']"/></td>
+                                                        <td><t t-esc="line['subtotal']"/></td>
+                                                    </tr>
+                                                </t>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
